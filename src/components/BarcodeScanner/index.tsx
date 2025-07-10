@@ -21,9 +21,9 @@ const BarcodeScanner = ({ onDetected }: Props) => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
           video: {
-            facingMode: { exact: "environment" },
-            width: { ideal: 1280 },
-            height: { ideal: 720 },
+            facingMode: { ideal: "environment" },
+            width: { ideal: 9999 },
+            height: { ideal: 9999 },
             advanced: [{ focusMode: "continuous" }] as any[],
           },
         });
