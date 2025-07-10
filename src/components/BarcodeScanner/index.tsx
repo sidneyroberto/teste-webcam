@@ -35,12 +35,10 @@ const BarcodeScanner = ({ onDetected }: Props) => {
 
           const controls = await reader.decodeFromVideoElement(
             videoRef.current,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             (result, error) => {
               if (result) {
                 onDetected(result.getText());
-              }
-              if (error && error.name !== "NotFoundException") {
-                console.error("Erro de leitura:", error);
               }
             }
           );
