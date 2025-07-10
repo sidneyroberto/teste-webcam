@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMediaDevices } from "react-media-devices";
 import { useZxing } from "react-zxing";
 
@@ -10,6 +11,9 @@ const constraints: MediaStreamConstraints = {
     facingMode: "environment",
     width: { ideal: 1280 },
     height: { ideal: 720 },
+    advanced: [
+      { focusMode: "continuous" }, // ⚠️ não padronizado, mas funcional em vários Androids
+    ] as any[],
   },
 };
 
