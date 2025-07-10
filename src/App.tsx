@@ -1,8 +1,8 @@
 // pages/Leitor.tsx (ou algum componente seu)
 import { useState } from "react";
-import BarcodeScanner from "./components/BarcodeScanner";
 
 import "./App.css";
+import BarcodeScanner2 from "./components/BarcodeScanner2";
 
 const App = () => {
   const [codigoLido, setCodigoLido] = useState<string | null>(null);
@@ -16,7 +16,7 @@ const App = () => {
   return (
     <div>
       <h2>Escaneie o código de barras do item</h2>
-      <BarcodeScanner onDetected={lidarComCodigo} />
+      <BarcodeScanner2 onDetected={lidarComCodigo} />
 
       {codigoLido && (
         <p>
