@@ -21,7 +21,7 @@ const BarcodeScanner = ({ onDetected }: Props) => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
           video: {
-            facingMode: { ideal: "environment" },
+            facingMode: { exact: "environment" },
             width: { ideal: 1280 },
             height: { ideal: 720 },
             advanced: [{ focusMode: "continuous" }] as any[],
@@ -35,10 +35,12 @@ const BarcodeScanner = ({ onDetected }: Props) => {
 
           const controls = await reader.decodeFromVideoElement(
             videoRef.current,
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            (result, _error) => {
+            (result, error) => {
               if (result) {
                 onDetected(result.getText());
+              }
+              if (error && error.name !== "NotFoundException") {
+                console.error("Erro de leitura:", error);
               }
             }
           );
@@ -63,22 +65,16 @@ const BarcodeScanner = ({ onDetected }: Props) => {
   }, [onDetected]);
 
   return (
-    <div style={{ position: "relative", width: "100%", paddingTop: "25%" }}>
+    <div>
       <video
         ref={videoRef}
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
           width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          border: "2px solid #ccc",
           borderRadius: "8px",
+          border: "2px solid #ccc",
         }}
         autoPlay
         muted
-        playsInline
       />
     </div>
   );
