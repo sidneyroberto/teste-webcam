@@ -28,6 +28,20 @@ const BarcodeScanner = ({ onDetected }: Props) => {
           },
         });
 
+        const track = stream.getVideoTracks()[0];
+        const capabilities = track.getCapabilities() as any;
+
+        // ✅ Aplica zoom 2x, se suportado
+        if (capabilities.zoom) {
+          const zoomLevel = Math.min(2, capabilities.zoom.max);
+          await track.applyConstraints({
+            advanced: [{ zoom: zoomLevel }] as any[],
+          });
+          console.log("Zoom aplicado:", zoomLevel);
+        } else {
+          console.warn("Zoom não suportado pelo dispositivo.");
+        }
+
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
           videoRef.current.setAttribute("playsinline", "true");
