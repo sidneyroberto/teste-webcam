@@ -8,6 +8,8 @@ type Props = {
 const constraints: MediaStreamConstraints = {
   video: {
     facingMode: "environment",
+    width: { ideal: 1280 },
+    height: { ideal: 720 },
   },
 };
 
